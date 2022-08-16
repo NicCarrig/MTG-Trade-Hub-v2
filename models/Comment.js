@@ -1,48 +1,64 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Schema, model, Types } = require('mongoose');
+const dateFormat = require('../utils/helpers')
 
-
-class Comment extends Model {}
-
-
-Comment.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-          },
-        comment_text: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1]
-            }
-          },
-          user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-              model: 'user',
-              key: 'id'
-            }
-          },
-          post_id: {
-            type: DataTypes.INTEGER,
-            references: {
-              model: 'post',
-              key: 'id'
-            }
-          }
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      // use mongoose ObjectId data type
+      type: Schema.Types.ObjectId,
+      // Default value is set to a new ObjectId
+      default: () => new Types.ObjectId()
     },
-    {
-        sequelize,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'comment'
+    reactionBody: {
+      type: String,
+      required: true,
+      maxLength: 280
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      // set default value to current timestamp
+      default: Date.now,
+      // use a getter method to format timestamp on query
+      get: createdAtVal => dateFormat(createdAtVal)
     }
+  },
+  {
+    toJSON: {
+      getters: true
+    }
+  }
+
 );
 
+const CommentSchema = new Schema({
+  writtenBy: {
+    type: String
+  },
+  commentBody: {
+    type: String
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: createdAtVal => dateFormat(createdAtVal)
+  },
+  // use ReplySchema to validate data for a reply
+  replies: [ReplySchema]
 
+},
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true
+    },
+    id: false
+  }
+);
+
+const Comment = model('Comment', CommentSchema);
 
 module.exports = Comment;

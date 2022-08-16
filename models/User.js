@@ -1,68 +1,38 @@
-const { INTEGER } = require('sequelize');
-const { STRING } = require('sequelize');
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const bcrypt = require('bcrypt');
+const { Schema, model } = require('mongoose');
+const { Inventory } = require('./Inventory');
 
-
-class User extends Model{
-
-    checkPassword(loginPw){
-        return bcrypt.compareSync(loginPw, this.password);
-    }
-}
-
-User.init(
-    {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-                isEmail: true
-            }
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                //password must be at least four characters long
-                len: [4]
-            }
-        }
+const UserSchema = new Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
+  },
+  inventory: [Inventory]
+  // friends: [{
+  //   // Array of _id values referenceing the User model (self-ref)
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'
+  // }]
+},
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true
     },
-    {
-        hooks: {
-            //set up beforeCreate lifecycle "hook" functionality
-            async beforeCreate(newUserData){
-                newUserData.password = await bcrypt.hash(newUserData.password, 10);
-                return newUserData;
-            },
-            //set up beforeUpdate lifecycle "hook" functionality
-            async beforeUpdate(updatedUserData){
-                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-                return updatedUserData;
-            }
-        },
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'user'
-    }
-);
+    id: false
+  })
 
+// UserSchema.virtual('friendCount').get(function () {
+//   return this.friends.length
+// });
 
-
+const User = model('User', UserSchema)
 
 module.exports = User;
