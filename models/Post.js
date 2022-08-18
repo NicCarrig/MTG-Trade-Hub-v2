@@ -1,38 +1,28 @@
 
 const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
-
+const { Comment } = require('./Comment')
 const PostSchema = new Schema(
   {
     title: {
       type: String,
       required: true
     },
+    post_body: {
+      type: String,
+      required: true
+    },
     username: {
       type: String,
       required: true
-    },  
-    postBody: {
-      type: String,
-      required: true
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: timestamp => dateFormat(timestamp)
-    },
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-      }
-    ]
+    comments: [Comment]
   },
   {
     toJSON: {
       virtuals: true,
       getters: true,
-    }
+    },
+    id: false
   }
 
 );

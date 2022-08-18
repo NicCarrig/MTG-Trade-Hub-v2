@@ -23,11 +23,21 @@ const typeDefs = gql`
     createdAt: String
     username: String
   }
+  type Post {
+    _id: ID
+    title: String
+    username: String
+    postBody: String
+    createdAt: String
+    comments: [Comment]
+
+  }
   type User {
   _id: ID
   username: String
   email: String
   friendCount: Int
+  posts: [Post]
   comments: [Comment]
   friends: [User]
 }
@@ -36,6 +46,8 @@ const typeDefs = gql`
     user(username: String!): User 
     comments(username: String): [Comment]
     comment(_id: ID!): Comment
+    posts(username: String): [Post]
+    post(_id: ID!): Post
   }
   `
   // inventory type

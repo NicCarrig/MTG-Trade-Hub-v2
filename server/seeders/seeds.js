@@ -1,6 +1,6 @@
 const faker = require('faker');
 const db = require('../config/connection')
-const { Comment, User } = require('../models')
+const { Comment, User, Post } = require('../models')
 
 
 
@@ -8,8 +8,9 @@ db.once('open', async () => {
   await Comment.deleteMany({});
   await User.deleteMany({});
   // await Inventory.deleteMany({});
-  // await Post.deleteMany({});
+  await Post.deleteMany({});
 
+  // USERS + FRIENDS
   // create user data
   const userData = [];
 
@@ -18,12 +19,12 @@ db.once('open', async () => {
     const email = faker.internet.email(username);
     const password = faker.internet.password();
     
-console.log(username)
+
     userData.push({ username, email, password });
   }
 
    const createdUsers = await User.collection.insertMany(userData);
-console.log(userData)
+
   // create friends
   for (let i = 0; i < 100; i += 1) {
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
@@ -38,24 +39,56 @@ console.log(userData)
 
     await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
   }
+// -------------------------------------------------------------------
 
-  // create comments
-  let createdComments = [];
-  for (let i = 0; i < 100; i += 1) {
-    const commentBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+// POSTS
+ let createdPosts = []
+
+ for (let i = 0; i < 50; i += 1) {
+   const postBody = faker.lorem.words(Math.round(Math.random() * 200) + 1);
+   const title = faker.lorem.words(Math.round(Math.random() * 4) + 1);
+
+   const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+   const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+
+   const createdPost = await Post.create({ title, postBody, username });
+
+   const updatedUser = await User.updateOne(
+     { _id: userId },
+     { $push: { posts: createdPost._id } }
+   );
+
+   createdPosts.push(createdPost)
+ }
+ 
+ // -----------------------------------------------------------
+ 
+ // create comments
+ let createdComments = [];
+ for (let i = 0; i < 100; i += 1) {
+   const commentBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+   
+    const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
+    const { _id: postId } = createdPosts[randomPostIndex];
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+
 
     const createdComment = await Comment.create({ commentBody, username });
 
     const updatedUser = await User.updateOne(
       { _id: userId },
       { $push: { comments: createdComment._id } }
+    ); 
+    const updatedPost = await Post.updateOne(
+      { _id: postId },
+      { $push: { comments: createdComment._id } }
     );
-
+    
     createdComments.push(createdComment);
   }
+  console.log(createdPosts)
 
  // create replies
   for (let i = 0; i < 100; i += 1) {
@@ -72,8 +105,9 @@ console.log(userData)
       { $push: { replies: { replyBody, username } } },
       { runValidators: true }
     );
-  }
 
+  }
+ 
   console.log('all done!');
   process.exit(0);
 });

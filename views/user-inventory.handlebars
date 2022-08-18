@@ -1,0 +1,15 @@
+
+{{#if cards.length}}
+<section>
+  <h2>{{cards.0.user.username}}'s Inventory</h2>
+  <div class="card-wrapper">
+    {{#each cards as |card|}}
+    <div class="card-container">
+      <img src="{{img_uri}}" alt="image of {{card_name}}">
+      {{card_name}}
+    </div>
+    {{/each}}
+  </div>
+  
+</section>
+{{/if}}
