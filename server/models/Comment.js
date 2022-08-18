@@ -46,18 +46,24 @@ const CommentSchema = new Schema({
     default: Date.now,
     get: createdAtVal => dateFormat(createdAtVal)
   },
+  username: {
+    type: String,
+    required: true
+  },
   // use ReplySchema to validate data for a reply
   replies: [replySchema]
-
 },
   {
     toJSON: {
       virtuals: true,
       getters: true
-    },
-    id: false
+    }
   }
 );
+
+CommentSchema.virtual('replyCount').get(function () {
+  return this.replies.length;
+});
 
 const Comment = model('Comment', CommentSchema);
 

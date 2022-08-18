@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-const {inventorySchema} = require('./Inventory')
+
 
 const userSchema = new Schema({
   username: {
@@ -15,39 +15,51 @@ const userSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/, 'Must match an email address!']
   },
-
-  friends: [{
-    // Array of _id values referenceing the User model (self-ref)
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+  password: {
+    type: String,
+    required: true,
+    minlength: 5
+  },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }
+  ],
+  friends: [
+    {
+      // Array of _id values referenceing the User model (self-ref)
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ]
 },
   {
     toJSON: {
-      virtuals: true,
-      getters: true
+      virtuals: true
     }
   })
 
 // set up pre-save middleware to create password
-// userSchema.pre('save', async function (next) {
-//   if (this.isNew || this.isModified('password')) {
-//     const saltRounds = 10;
-//     this.password = await bcrypt.hash(this.password, saltRounds);
-//   }
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
 
-//   next();
-// });
+  next();
+});
 
-// // compare the incoming password with the hashed password
-// userSchema.methods.isCorrectPassword = async function (password) {
-//   return bcrypt.compare(password, this.password);
-// };
+// compare the incoming password with the hashed password
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
-// userSchema.virtual('inventoryCount').get(function () {
-//   return this.inventory.length;
-// });
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
 const User = model('User', userSchema);
+
 
 module.exports = User;

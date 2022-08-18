@@ -1,18 +1,43 @@
+// TypeDef: literally defining every piece of data that the client can expect to work with through a query or mutation.
+
+
+// Import gql tagged template function
 const { gql } = require('apollo-server-express');
 
+
+// create typeDefs
 const typeDefs = gql`
-  type User {
+
+  type Comment {
     _id: ID
+    writtenBy: String
+    commentBody: String
     username: String
-    email: String
-    friendCount: Int
-    thoughts: [Thought]
-    friends: [User]
+    createdAt: String
+    replyCount: Int
+    replies: [Reply]
   }
-  type Auth {
-    token: ID!
-    user: User
-  } `
+  type Reply {
+    _id: ID
+    replyBody: String
+    createdAt: String
+    username: String
+  }
+  type User {
+  _id: ID
+  username: String
+  email: String
+  friendCount: Int
+  comments: [Comment]
+  friends: [User]
+}
+  type Query {
+    users: [User]
+    user(username: String!): User 
+    comments(username: String): [Comment]
+    comment(_id: ID!): Comment
+  }
+  `
   // inventory type
   // comment type 
   // Post type
@@ -21,4 +46,6 @@ const typeDefs = gql`
   
   ;
 
+
+  // export them
 module.exports = typeDefs;
