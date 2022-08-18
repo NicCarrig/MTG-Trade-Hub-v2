@@ -1,6 +1,4 @@
-const { Post } = require('../models');
-
-const postdata = [
+[
   {
     title: 'Donec posuere metus vitae ipsum.',
     post_body: 'https://buzzfeed.com/in/imperdiet/et/commodo/vulputate.png',

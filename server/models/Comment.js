@@ -1,15 +1,15 @@
 const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/helpers')
+const dateFormat = require('../utils/dateFormat')
 
-const ReactionSchema = new Schema(
+const replySchema = new Schema(
   {
-    reactionId: {
+    replyId: {
       // use mongoose ObjectId data type
       type: Schema.Types.ObjectId,
       // Default value is set to a new ObjectId
       default: () => new Types.ObjectId()
     },
-    reactionBody: {
+    replyBody: {
       type: String,
       required: true,
       maxLength: 280
@@ -47,7 +47,7 @@ const CommentSchema = new Schema({
     get: createdAtVal => dateFormat(createdAtVal)
   },
   // use ReplySchema to validate data for a reply
-  replies: [ReplySchema]
+  replies: [replySchema]
 
 },
   {

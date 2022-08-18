@@ -14,8 +14,8 @@ const PostSchema = new Schema(
     username: {
       type: String,
       required: true
-    },
-    comments: [Comment]
+    }
+   
   },
   {
     toJSON: {

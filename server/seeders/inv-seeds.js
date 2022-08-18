@@ -1,6 +1,4 @@
-const { Inventory } = require('../models');
-
-const invdata = [
+[
   {
     user_id: 1,
     card_name: 'Horde of Notions',

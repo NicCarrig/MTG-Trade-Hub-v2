@@ -2,7 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 
 
 
-const InventorySchema = new Schema(
+const inventorySchema = new Schema(
   {
     username: {
       type: String,
@@ -20,12 +20,17 @@ const InventorySchema = new Schema(
       type: String,
       required: true
     }
+  },
+  {
+    toJSON: {
+      getters: true
+    }
   }
 );
 
 
 
-const Inventory = model('Inventory', InventorySchema);
+const Inventory = model('Inventory', inventorySchema);
 
 
 module.exports = Inventory;
