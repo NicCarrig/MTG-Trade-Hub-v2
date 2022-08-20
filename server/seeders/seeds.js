@@ -1,6 +1,6 @@
 const faker = require('faker');
 const db = require('../config/connection')
-const { Comment, User, Post } = require('../models')
+const { Comment, User, Post, Inventory } = require('../models')
 
 
 
@@ -108,6 +108,25 @@ db.once('open', async () => {
 
   }
  
+  let createdInventory = []
+
+  for (let i = 0; i < 50; i += 1) {
+    const card_name = faker.lorem.words(Math.round(Math.random() * 200) + 1);
+    const scryfall_id = faker.lorem.words(Math.round(Math.random() * 4) + 1);
+    const img_uri = faker.name.firstName;
+    
+    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+
+    const createdCard = await Inventory.create({ username, card_name, scryfall_id, img_uri });
+
+    const updatedUser = await User.updateOne(
+      { _id: userId },
+      { $push: { inventory: createdCard._id } }
+    );
+
+    createdInventory.push(createdCard)
+  }
   console.log('all done!');
   process.exit(0);
 });

@@ -33,6 +33,12 @@ const userSchema = new Schema({
       ref: 'Comment'
     }
   ],
+  inventory: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Inventory'
+    }
+  ],
   friends: [
     {
       // Array of _id values referenceing the User model (self-ref)

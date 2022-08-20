@@ -14,7 +14,8 @@ const inventorySchema = new Schema(
     },
     scryfall_id: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     img_uri: {
       type: String,
@@ -27,8 +28,6 @@ const inventorySchema = new Schema(
     }
   }
 );
-
-
 
 const Inventory = model('Inventory', inventorySchema);
 

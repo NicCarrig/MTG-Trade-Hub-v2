@@ -17,12 +17,14 @@ const typeDefs = gql`
     replyCount: Int
     replies: [Reply]
   }
+
   type Reply {
     _id: ID
     replyBody: String
     createdAt: String
     username: String
   }
+
   type Post {
     _id: ID
     title: String
@@ -30,31 +32,53 @@ const typeDefs = gql`
     postBody: String
     createdAt: String
     comments: [Comment]
+  }
+  
+  type User {
+    _id: ID
+    username: String
+    email: String
+    friendCount: Int
+    posts: [Post]
+    comments: [Comment]
+    inventory: [Inventory]
+    friends: [User]
+  }
+
+  type Inventory {
+    _id: ID 
+    username: String
+    card_name: String
+    scryfall_id: String
+    img_uri: String
 
   }
-  type User {
-  _id: ID
-  username: String
-  email: String
-  friendCount: Int
-  posts: [Post]
-  comments: [Comment]
-  friends: [User]
-}
+  
+  type Auth {
+    token: ID!
+    user: User
+  }
+  
   type Query {
+    me: User
     users: [User]
     user(username: String!): User 
     comments(username: String): [Comment]
     comment(_id: ID!): Comment
     posts(username: String): [Post]
     post(_id: ID!): Post
+    inventory: [Inventory]
   }
+
+  type Mutation {
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+  }
+
+
   `
   // inventory type
-  // comment type 
-  // Post type
-  // Query type
-  // mutation type
+ 
   
   ;
 
