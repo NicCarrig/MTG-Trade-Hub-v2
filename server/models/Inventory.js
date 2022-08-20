@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
-
+const dateFormat = require('../utils/dateFormat');
 
 
 const inventorySchema = new Schema(
@@ -20,6 +20,11 @@ const inventorySchema = new Schema(
     img_uri: {
       type: String,
       required: true
+    },
+    addedAt: {
+      type: Date,
+      default: Date.now,
+      get: timestamp => dateFormat(timestamp)
     }
   },
   {
@@ -32,4 +37,4 @@ const inventorySchema = new Schema(
 const Inventory = model('Inventory', inventorySchema);
 
 
-module.exports = Inventory;
+module.exports = Inventory, inventorySchema;

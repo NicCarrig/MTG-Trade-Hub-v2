@@ -51,6 +51,7 @@ const typeDefs = gql`
     card_name: String
     scryfall_id: String
     img_uri: String
+    addedAt: String
 
   }
   
@@ -73,13 +74,15 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addPost(title: String!, postBody: String!): Post
+    addComment(postId: ID! commentBody: String!): Comment
+    addReply(commentId: ID!, replyBody: String!): Comment
+    addInventory(card_name: String!, scryfall_id: String!, img_uri: String! ): Inventory
+    addFriend(friendId: ID!): User
   }
 
 
   `
-  // inventory type
- 
-  
   ;
 
 
