@@ -8,7 +8,7 @@ import {
 } from '@apollo/client';
 //import { setContext } from '@apollo/client/link/context';
 
-import Header from './components/Header';
+
 import Footer from './components/Footer';
 
 import Home from './pages/Home';
@@ -17,7 +17,7 @@ import NoMatch from './pages/NoMatch';
 //import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
-
+import Landing from './pages/Landing';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -42,12 +42,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
-          <div className="container">
+        <div className="flex-column justify-contents-center align-items-center min-100-vh">
+         
+          <div className="flex-column justify-contents-center align-items-center min-100-vh">
             <Routes>
               <Route
                 path="/"
+                element={<Landing />}
+              />
+              <Route
+                path="/home"
                 element={<Home />}
               />
               <Route

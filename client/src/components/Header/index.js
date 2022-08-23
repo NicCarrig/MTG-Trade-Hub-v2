@@ -12,9 +12,14 @@ const Header = () => {
 
     return (
         <header className="p-3 ">
-          <div className="container">
-            <div className="header">
-              <nav className="text-center">
+          <div className="header flex-row">
+            <nav class="navbar">
+              <div className='title'>
+                <Link to="/home">
+                  <h1>Magic The Gathering</h1>
+                  </Link>
+              </div>
+             <div className="navLinks">
                   {Auth.loggedIn() ? (
                     <>
                   <Link to="/profile">Me</Link>
@@ -28,12 +33,14 @@ const Header = () => {
                   <Link to="/signup">Signup</Link>
                 </>
               )}
+             </div>
             </nav>
-                  </div>
-
-                </div>
-            
+          </div>
         </header>
+          
+
+         
+            
     );
 };
 
