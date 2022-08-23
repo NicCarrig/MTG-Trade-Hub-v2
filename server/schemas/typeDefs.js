@@ -79,7 +79,8 @@ const typeDefs = gql`
     addReply(commentId: ID!, replyBody: String!): Comment
     addInventory(card_name: String!, scryfall_id: String!, img_uri: String! ): Inventory
     addFriend(friendId: ID!): User
-    deletePost(_id: ID): Post
+    deletePost(_id: ID!): User
+
   }
 
 
