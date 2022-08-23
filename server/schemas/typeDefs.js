@@ -80,6 +80,7 @@ const typeDefs = gql`
     addInventory(card_name: String!, scryfall_id: String!, img_uri: String! ): Inventory
     addFriend(friendId: ID!): User
     deletePost(_id: ID!): User
+
   }
 
 
