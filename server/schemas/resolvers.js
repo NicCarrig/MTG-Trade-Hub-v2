@@ -159,9 +159,17 @@ me: async (parent, args, context) => {
       }
 
       throw new AuthenticationError('You need to be logged in!');
-    }
-  }
-};
+    },
+    deletePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const updatedPost = await Post.findOneAndDelete(
+          { _id: postId });
 
+          return updatedPost;
+        }
+        throw new AuthenticationError('You need to be logged in!');
+  },
+},
+}
 
 module.exports = resolvers;
