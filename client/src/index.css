@@ -3,7 +3,7 @@
   --secondary: #c6c99b;
   --tertiary: #b2c2c1;
   --quatrinary: #cadbda;
-  --light: rgba(157, 196, 195, 0.6);
+  --light: rgba(134, 172, 171, 0.6);
   --dark: #4d0909;
   --error: rgb(228, 46, 1);
   --border-radius: 0.3rem;
@@ -22,38 +22,11 @@ html,
 body {
   min-height: 100%;
 }
-#sky {
-  background-image: url('../public/clouds.jpeg');
-  opacity: 0.4;
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
-  margin: 0%;
-  animation: gradient 12s linear infinite;
-  animation-direction:alternate-reverse;
-  overflow: hidden;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0%
-  }
-
-  50% {
-    background-position: 90%
-  }
-
-  100% {
-    background-position: 0%
-  }
-}
-.root {
-  z-index: 12;
-}
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: 400;
   line-height: 1.5;
   font-size: 20px;
@@ -68,23 +41,86 @@ body {
 header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   font-family: 'Cinzel Decorative', cursive;
   background: transparent;
   color: var(--dark);
+  width: 100vw;
 }
 
+.navbar {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.oops {
+  text-align: center;
+  margin: 200px 100px;
+  background-color: #b2c2c1;
+  border-radius: 30px;
+  opacity: .8;
+  padding: 5%;
+}
 h1 {
+  font-family: 'Cinzel Decorative',
+      cursive;
   font-size: 2.25rem;
   text-shadow: 2px 2px 8px #610404;
 }
+.hero {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('../public/clouds.jpeg');
+    opacity: 0.8;
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    margin: 0%;
+    animation: gradient 120s linear infinite;
+    animation-direction: alternate-reverse;
+    overflow: hidden;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0%
+    }
+  
+    50% {
+      background-position: 90%
+    }
+  
+    100% {
+      background-position: 0%
+    }
+  }
 
+.heroTitle {
+  position: relative;
+  font-size: 4.0rem;
+  color: #eaead7;
+}
+
+.heroTitle2 {
+  position: relative;
+  font-size: 2.0rem;
+  color: #eaead7;
+  text-shadow: 4px 4px 8px var(--dark);
+}
 h2 {
+  font-family: 'Cinzel Decorative',
+    cursive;
+  color: #eaead7;
   font-size: 2rem;
+  
 }
 
 h3 {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
   font-size: 1.75rem;
 }
 
@@ -127,7 +163,8 @@ nav a {
 
 nav a:hover {
   color: var(--secondary);
-  background-color: var(--dark);
+  text-shadow: 2px 2px 2px var(--dark);
+ 
 }
 
 .page-title {
@@ -139,7 +176,7 @@ nav a:hover {
 
 .btn,
 .pill {
-  font-size: 1.3rem;
+  font-size: 1.0rem;
   text-decoration: none;
   padding: 0.5rem 1.2rem;
   margin: 5px 0;
@@ -161,51 +198,94 @@ nav a:hover {
   display: inline;
 }
 
+.enterbtn {
+  border-radius: 30px;
+  background-color: var(--dark);
+  font-family: 'Cinzel Decorative',
+      cursive;
+  box-shadow: 4px 4px 8px var(--dark);
+}
+
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
+  width: 400px;
   border: none;
   box-shadow: 5px 10 px  black;
-  border-radius: var(--border-radius);
+  border-radius: 30px;
   background-color: var(--light);
-  
+  text-align: center;
   color: var(--dark);
+  font-family:'Courier New', Courier, monospace;
 }
+
 
 .card-header {
-  color: var(--secondary);
+  font-family: 'Cinzel Decorative',
+    cursive;
+  color: var(--dark);
   margin: 0;
-  background-color: var(--dark);
+  background: transparent;
+  border-bottom: none;
   padding: 0.625rem;
-  border-radius: 20px;
+  
 }
 
+.postCard {
+  background-color: #eaead7;
+  opacity: 0.9;
+  width: 80%
+  
+}
+
+.postCardHeader {
+  background-color: #442828;
+  color: #eaead7;
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+  
+}
 .card-body {
   padding: 2.5%;
   font-size: 1.4rem;
+  text-align: left;
 }
 
 /* FORM */
+form {
+  text-align: center;
+}
+
 .form-label,
 .form-input,
 .form-textarea {
   display: block;
+  text-align: center;
 }
 
 .form-label {
   font-size: 1.2rem;
   margin: 0.625rem 0 0.25rem;
+  text-align: center;
+
 }
 
 .form-input {
-  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  width: 80%;
+  text-align: center;
   padding: 0.75rem;
-  margin: 0.2rem 0;
+  margin: 0.3rem auto;
   font-size: 1.2rem;
-  border: 2px solid var(--dark);
-  border-radius: var(--border-radius);
+  box-shadow: #4d0909;
+  border-radius: 30px;
+  background-color: antiquewhite; opacity: 0.8;
 }
-
+.submitbtn {
+  font-family: 'Cinzel Decorative',
+    cursive;
+  border-radius: 30px;
+}
 [type='radio']:checked,
 [type='radio']:not(:checked) {
   position: absolute;
@@ -268,6 +348,12 @@ nav a:hover {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-fluid {

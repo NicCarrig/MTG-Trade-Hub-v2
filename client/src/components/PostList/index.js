@@ -6,18 +6,18 @@ const PostList = ({posts}) => {
   }
 
   return (
-    <div>
+    <div className='postContainer'>
       
       {posts &&
         posts.slice(0,10).map(post => (
-          <div key={post._id} className="card mb-3">
-            <p className="card-header">
+          <div key={post._id} className="card postCard mb-3">
+            <p className="card-header postCardHeader">
              <b>{post.title}</b> By {post.username} at {post.createdAt}
             </p>
             <div className="card-body">
               <p>{post.postBody}</p>
-              <button className="btn">
-                Click to see the discussion!
+              <button className="btn btn-sm">
+                Go to post
               </button>
             </div>
           </div>

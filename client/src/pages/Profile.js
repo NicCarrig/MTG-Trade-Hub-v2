@@ -4,7 +4,7 @@
 // import ThoughtForm from '../components/ThoughtForm';
 // import ThoughtList from '../components/ThoughtList';
 // import FriendList from '../components/FriendList';
-
+// import Header from '../components/Header';
 // import { useQuery, useMutation } from '@apollo/client';
 // import { QUERY_USER, QUERY_ME } from '../utils/queries';
 // import { ADD_FRIEND } from '../utils/mutations';
@@ -48,14 +48,15 @@
 //     }
 //   };
 
-//   return (
+//    return (
+// <main className="flex-row justify-center mb-4">
+//   <Header />
 //     <div>
 //       <div className="flex-row mb-3">
-//         <h2 className="bg-dark text-secondary p-3 display-inline-block">
+//        <h2 className="bg-dark text-secondary p-3 display-inline-block">
 //           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
 //         </h2>
-
-//         {userParam && (
+//       {userParam && (
 //           <button className="btn ml-auto" onClick={handleClick}>
 //             Add Friend
 //           </button>
@@ -80,6 +81,7 @@
 //       </div>
 //       <div className="mb-3">{!userParam && <ThoughtForm />}</div>
 //     </div>
+//     </main>
 //   );
 // };
 
