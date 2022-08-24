@@ -12,8 +12,8 @@ import Auth from '../utils/auth';
 
 const Profile = (props) => {
   const { username: userParam } = useParams();
-  const [searchedCardName, setSearchedCardName] = useState();
-  const [searchName, setSearchName] = useState();
+  // const [searchedCardName, setSearchedCardName] = useState();
+  // const [searchName, setSearchName] = useState();
 
   //   const [addFriend] = useMutation(ADD_FRIEND);
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
