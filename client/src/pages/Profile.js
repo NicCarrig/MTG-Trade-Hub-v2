@@ -3,6 +3,8 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import Inventory from '../components/Inventory';
 import { fetchSearchCard } from '../utils/searchCard';
+import PostList from '../components/PostList';
+import PostForm from '../components/PostForm';
 import Header from '../components/Header';
 
 import { useQuery, useMutation } from '@apollo/client';
@@ -20,11 +22,11 @@ const Profile = (props) => {
     variables: { username: userParam },
   });
 
-  console.log(data);
-  console.log('Username');
-  console.log(Auth.getProfile().data.username);
-  console.log('Logged In');
-  console.log(Auth.loggedIn());
+  // console.log(data);
+  // console.log('Username');
+  // console.log(Auth.getProfile().data.username);
+  // console.log('Logged In');
+  // console.log(Auth.loggedIn());
   
   const user = data?.me || data?.user || {};
   
@@ -64,17 +66,23 @@ const Profile = (props) => {
     <div>
       <Header />
         <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : 'your'} inventory.
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+
+        <div className='flex-row justify-space-between mb-3'>
+          <div className='col-12 mb-3 col-lg-8'>
+            <PostList posts={user.posts} title={`${user.username}'s posts`} />
+          </div>
+        </div>
 
         <form>
             <textarea placeholder='Search for a card'></textarea>
             <button>Search</button>
         </form>
 
-        {/* Should render the serach results here */}
 
-        <Inventory />
+        {/* Should render the search results here */}
+        {/* <Inventory /> */}
 
     </div>
   );

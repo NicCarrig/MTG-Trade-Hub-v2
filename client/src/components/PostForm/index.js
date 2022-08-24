@@ -6,6 +6,7 @@ import { QUERY_POSTS, QUERY_ME } from '../../utils/queries';
 
 const PostForm = () => {
   const [postBody, setBody] = useState('');
+  const [title, setTitle] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addPost, { error }] = useMutation(ADD_POST, {
@@ -39,6 +40,9 @@ const PostForm = () => {
       setCharacterCount(event.target.value.length);
     }
   };
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
   // submit form
   const handleFormSubmit = async (event) => {
@@ -46,11 +50,12 @@ const PostForm = () => {
 
     try {
       await addPost({
-        variables: { postBody },
+        variables: { title, postBody },
       });
 
       // clear form value
       setBody('');
+      setTitle('');
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -66,16 +71,17 @@ const PostForm = () => {
         {error && <span className="ml-2">Something went wrong...</span>}
       </p>
       <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
+        className="flex-row justify-center justify-space-between-md align-stretch w-75"
         onSubmit={handleFormSubmit}
       >
+        <input type="text" value={title} className="form-input col-12" placeholder='Title' onChange={handleTitleChange}></input>
         <textarea
           placeholder="New Post..."
           value={postBody}
-          className="form-input col-12 col-md-9"
+          className="form-input col-12 "
           onChange={handleChange}
         ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
+        <button className="btn col-12" type="submit">
           Submit
         </button>
       </form>
