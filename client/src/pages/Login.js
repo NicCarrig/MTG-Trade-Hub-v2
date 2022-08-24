@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Header from '../components/Header'
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -65,9 +66,11 @@ const Login = (props) => {
                 value={formState.password}
                 onChange={handleChange}
               />
+              <Link to="/home">
               <button className="btn btn-sm submitbtn" type="submit">
                 Submit
               </button>
+              </Link>
             </form>
 
             {error && <div>Login failed</div>}
