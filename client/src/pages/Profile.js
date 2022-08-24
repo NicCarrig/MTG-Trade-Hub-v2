@@ -1,42 +1,56 @@
-// import React from 'react';
-// import { Navigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 
-// import ThoughtForm from '../components/ThoughtForm';
-// import ThoughtList from '../components/ThoughtList';
-// import FriendList from '../components/FriendList';
-// import Header from '../components/Header';
-// import { useQuery, useMutation } from '@apollo/client';
-// import { QUERY_USER, QUERY_ME } from '../utils/queries';
-// import { ADD_FRIEND } from '../utils/mutations';
-// import Auth from '../utils/auth';
+import Inventory from '../components/Inventory';
+import { fetchSearchCard } from '../utils/searchCard';
+import PostList from '../components/PostList';
+import PostForm from '../components/PostForm';
+import Header from '../components/Header';
 
-// const Profile = (props) => {
-//   const { username: userParam } = useParams();
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import Auth from '../utils/auth';
 
-//   const [addFriend] = useMutation(ADD_FRIEND);
-//   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-//     variables: { username: userParam },
-//   });
 
-//   const user = data?.me || data?.user || {};
+const Profile = (props) => {
+  const { username: userParam } = useParams();
+  // const [searchedCardName, setSearchedCardName] = useState();
+  // const [searchName, setSearchName] = useState();
 
-//   // navigate to personal profile page if username is yours
-//   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-//     return <Navigate to="/profile:username" />;
-//   }
+  //   const [addFriend] = useMutation(ADD_FRIEND);
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
 
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
+  // console.log(data);
+  // console.log('Username');
+  // console.log(Auth.getProfile().data.username);
+  // console.log('Logged In');
+  // console.log(Auth.loggedIn());
+  
+  const user = data?.me || data?.user || {};
+  
 
-//   if (!user?.username) {
-//     return (
-//       <h4>
-//         You need to be logged in to see this. Use the navigation links above to
-//         sign up or log in!
-//       </h4>
-//     );
-//   }
+  // navigate to personal profile page if username is yours
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+    return <Navigate to="/profile" />;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user?.username) {
+    return (
+      <div>
+        <Header />
+        <h4>
+          You need to be logged in to see this. Use the navigation links above to
+          sign up or log in!
+        </h4>
+      </div>
+    );
+  }
 
 //   const handleClick = async () => {
 //     try {
@@ -48,41 +62,30 @@
 //     }
 //   };
 
-//    return (
-// <main className="flex-row justify-center mb-4">
-//   <Header />
-//     <div>
-//       <div className="flex-row mb-3">
-//        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-//           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-//         </h2>
-//       {userParam && (
-//           <button className="btn ml-auto" onClick={handleClick}>
-//             Add Friend
-//           </button>
-//         )}
-//       </div>
+   return (
+    <div>
+      <Header />
+        <h2 className="bg-dark text-secondary p-3 display-inline-block">
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        </h2>
 
-//       <div className="flex-row justify-space-between mb-3">
-//         <div className="col-12 mb-3 col-lg-8">
-//           <ThoughtList
-//             thoughts={user.thoughts}
-//             title={`${user.username}'s thoughts...`}
-//           />
-//         </div>
+        <div className='flex-row justify-space-between mb-3'>
+          <div className='col-12 mb-3 col-lg-8'>
+            <PostList posts={user.posts} title={`${user.username}'s posts`} />
+          </div>
+        </div>
 
-//         <div className="col-12 col-lg-3 mb-3">
-//           <FriendList
-//             username={user.username}
-//             friendCount={user.friendCount}
-//             friends={user.friends}
-//           />
-//         </div>
-//       </div>
-//       <div className="mb-3">{!userParam && <ThoughtForm />}</div>
-//     </div>
-//     </main>
-//   );
-// };
+        <form>
+            <textarea placeholder='Search for a card'></textarea>
+            <button>Search</button>
+        </form>
 
-// export default Profile;
+
+        {/* Should render the search results here */}
+        {/* <Inventory /> */}
+
+    </div>
+  );
+};
+
+export default Profile;

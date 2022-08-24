@@ -9,6 +9,18 @@ export const QUERY_POSTS = gql`
       username
       postBody
       createdAt
+    }
+  }
+`;
+
+export const QUERY_POST = gql`
+  query post($id: ID!) {
+    post(_id: $id) {
+      _id
+     title
+      username
+      postBody
+      createdAt
       comments {
         _id
         createdAt
@@ -25,16 +37,18 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      friendCount
-      friends {
+      posts {
+        _id
+        postBody
+        createdAt
+        commentCount
+      }
+      inventory {
         _id
         username
-      }
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-        reactionCount
+        card_name
+        scryfall_id
+        img_uri
       }
     }
   }
@@ -46,22 +60,15 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      friendCount
-      thoughts {
+      posts {
         _id
-        thoughtText
+        postBody
         createdAt
-        reactionCount
-        reactions {
-          _id
-          createdAt
-          reactionBody
-          username
-        }
       }
-      friends {
-        _id
-        username
+      inventory {
+        card_name
+        scryfall_id
+        img_uri
       }
     }
   }

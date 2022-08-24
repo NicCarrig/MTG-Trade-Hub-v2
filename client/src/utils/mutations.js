@@ -50,3 +50,33 @@ export const REMOVE_FRIEND = gql`
     }
   }
 `;
+
+export const ADD_COMMENT = gql`
+  mutation addComment($postId: ID!, $commentBody: String!) {
+    addComment(postId: $postId, commentBody: $commentBody) {
+      _id
+      commentCount
+      comments {
+        _id
+        commentBody
+        createdAt
+        username
+      }
+    }
+  }
+`;
+
+export const ADD_POST = gql`
+  mutation addPost($title: String!, $postBody: String!) {
+    addPost(title: $title, postBody: $postBody) {
+      _id
+      title
+      username
+      postBody
+      createdAt
+      comments {
+        _id
+      }
+    }
+  }
+`;

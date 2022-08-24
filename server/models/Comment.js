@@ -1,43 +1,8 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema } = require('mongoose');
 const dateFormat = require('../utils/dateFormat')
 
-const replySchema = new Schema(
-  {
-    replyId: {
-      // use mongoose ObjectId data type
-      type: Schema.Types.ObjectId,
-      // Default value is set to a new ObjectId
-      default: () => new Types.ObjectId()
-    },
-    replyBody: {
-      type: String,
-      required: true,
-      maxLength: 280
-    },
-    username: {
-      type: String,
-      required: true
-    },
-    createdAt: {
-      type: Date,
-      // set default value to current timestamp
-      default: Date.now,
-      // use a getter method to format timestamp on query
-      get: createdAtVal => dateFormat(createdAtVal)
-    }
-  },
-  {
-    toJSON: {
-      getters: true
-    }
-  }
 
-);
-
-const CommentSchema = new Schema({
-  writtenBy: {
-    type: String
-  },
+const commentSchema = new Schema({
   commentBody: {
     type: String
   },
@@ -49,22 +14,14 @@ const CommentSchema = new Schema({
   username: {
     type: String,
     required: true
-  },
-  // use ReplySchema to validate data for a reply
-  replies: [replySchema]
+  }
 },
   {
     toJSON: {
-      virtuals: true,
       getters: true
     }
   }
 );
 
-CommentSchema.virtual('replyCount').get(function () {
-  return this.replies.length;
-});
 
-const Comment = model('Comment', CommentSchema);
-
-module.exports = Comment;
+module.exports = commentSchema;

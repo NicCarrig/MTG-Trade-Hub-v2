@@ -1,47 +1,58 @@
-// import React from 'react';
-// import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-// import ReactionList from '../components/ReactionList';
-// import ReactionForm from '../components/ReactionForm';
+import Header from '../components/Header'
 
-// import Auth from '../utils/auth';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_THOUGHT } from '../utils/queries';
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
 
-// const SingleThought = (props) => {
-//   const { id: thoughtId } = useParams();
+import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { QUERY_POST } from '../utils/queries';
 
-//   const { loading, data } = useQuery(QUERY_THOUGHT, {
-//     variables: { id: thoughtId },
-//   });
 
-//   const thought = data?.thought || {};
+const SinglePost = (props) => {
+  const { id: postId } = useParams();
+console.log(postId)
 
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
+  const { loading, data } = useQuery(QUERY_POST, {
+    variables: { id: postId },
+  });
 
-//   return (
-//     <div>
-//       <div className="card mb-3">
-//         <p className="card-header">
-//           <span style={{ fontWeight: 700 }} className="text-light">
-//             {thought.username}
-//           </span>{' '}
-//           thought on {thought.createdAt}
-//         </p>
-//         <div className="card-body">
-//           <p>{thought.thoughtText}</p>
-//         </div>
-//       </div>
 
-//       {thought.reactionCount > 0 && (
-//         <ReactionList reactions={thought.reactions} />
-//       )}
+  const post = data?.post || {};
 
-//       {Auth.loggedIn() && <ReactionForm thoughtId={thought._id} />}
-//     </div>
-//   );
-// };
 
-// export default SingleThought;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+
+    <main className="flex-row justify-center mb-4">
+      <Header />
+    <div className='postContainer'>
+      <div className="postCard card mb-3">
+        <p className="postCardHeader card-header">
+          
+            {post.username}
+         {' '}
+           {post.createdAt}
+        </p>
+        <div className="card-body">
+          <p>{post.postBody}</p>
+        </div>
+      </div>
+        {post.comments.length > 0 && (
+          <CommentList comments={post.comments} />
+        )}
+
+        {/* {Auth.loggedIn() && <CommentForm postId={post._id} />} */}
+
+     </div>
+    </main>
+
+  );
+};
+
+export default SinglePost;
