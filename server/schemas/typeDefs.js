@@ -41,7 +41,6 @@ const typeDefs = gql`
     scryfall_id: String
     img_uri: String
     addedAt: String
-
   }
   
   type Auth {
@@ -55,7 +54,6 @@ const typeDefs = gql`
     user(username: String!): User 
     posts(username: String): [Post]
     post(_id: ID!): Post
-    inventory: [Inventory]
   }
 
   type Mutation {

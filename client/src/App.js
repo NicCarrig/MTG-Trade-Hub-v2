@@ -6,11 +6,11 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
-//import { setContext } from '@apollo/client/link/context';
+import { setContext } from '@apollo/client/link/context';
 
 
 import Footer from './components/Footer';
-import Header from './components/Header';
+// import Header from './components/Header';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -24,18 +24,18 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
-// const authLink = setContext((_, { headers }) => {
-//   const token = localStorage.getItem('id_token');
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : '',
-//     },
-//   };
-// });
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -52,7 +52,8 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/profile/:username?" element={<Profile />} />
+              <Route path='/profile/:username' element={<Profile />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path='/post/:id' element={<SinglePost />} />
               
               <Route path="*" element={<NoMatch />} />

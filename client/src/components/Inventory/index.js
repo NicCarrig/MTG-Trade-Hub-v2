@@ -6,7 +6,7 @@ const Inventory = ({ inventory }) => {
             {inventory && 
                 inventory.map(cards => (
                     <div class="card-container">
-                    <img src="{{img_uri}}" alt="image of {{card_name}}" />
+                    <img src="{}" alt="image of {}" />
                     {cards.card_name}
                     </div>
                 ))}

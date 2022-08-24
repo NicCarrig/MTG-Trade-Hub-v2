@@ -1,26 +1,26 @@
-const { User, Comment, Post, Inventory } = require('../models')
+// const { User, Comment, Post, Inventory } = require('../models');
+const { User, Post, Inventory } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth')
 
 const resolvers = {
 Query: {
-// ME will work with apolloServer to read request headers (JWT authentication)
-me: async (parent, args, context) => {
-  if (context.user) {
-    const userData = await User.findOne({ _id: context.user._id })
-      .select('-__v -password')
-      .populate('comments')
-      .populate('posts')
-      .populate('inventory')
-      .populate('friends');
+  // ME will work with apolloServer to read request headers (JWT authentication)
+  me: async (parent, args, context) => {
+    if (context.user) {
+      const userData = await User.findOne({ _id: context.user._id })
+        .select('-__v -password')
+        // .populate('comments')
+        .populate('posts')
+        .populate('inventory')
+        .populate('friends');
 
-    return userData;
-  }
+      return userData;
+    }
 
-  throw new AuthenticationError('Not logged in');
-},
+    throw new AuthenticationError('Not logged in');
+  },
 
-  
   //get all posts
   posts: async () => {
     return Post.find().sort({ createdAt: -1 })
@@ -36,7 +36,7 @@ me: async (parent, args, context) => {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      .populate('comments')
+      // .populate('comments')
       .populate('inventory');
   },
   // get a user by username
@@ -45,7 +45,7 @@ me: async (parent, args, context) => {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      .populate('comments')
+      // .populate('comments')
       .populate('inventory');
   }
 

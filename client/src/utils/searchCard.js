@@ -1,4 +1,6 @@
-
+export const fetchSearchCard = (searchName) => {
+    return fetch(`https://api.scryfall.com/cards/search?q=${searchName}`);
+}
 
 // async function searchBtnHandler(event){
 //     event.preventDefault();

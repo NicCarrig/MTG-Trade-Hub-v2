@@ -20,8 +20,8 @@ const PostList = ({posts}) => {
                on {post.createdAt}
             </p>
             <div className="card-body">
-            <Link to={`/post/${post._id}`}>
               <p>{post.postBody}</p>
+            <Link to={`/post/${post._id}`}>
               <button className="btn btn-sm">
                 Go to post
               </button>

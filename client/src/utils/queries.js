@@ -31,40 +31,24 @@ export const QUERY_POST = gql`
   }
 `;
 
-export const QUERY_POST = gql`
-  query posts($id: ID!) {
-    posts(_id: $id){
-      _id
-      title
-       username
-       postBody
-       createdAt
-       comments {
-         _id
-         createdAt
-         username
-         commentBody
-       } 
-    }
-  }
-`;
-
 export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {
       _id
       username
       email
-      friendCount
-      friends {
-        _id
-        username
-      }
       posts {
         _id
         postBody
         createdAt
         commentCount
+      }
+      inventory {
+        _id
+        username
+        card_name
+        scryfall_id
+        img_uri
       }
     }
   }
@@ -76,22 +60,15 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      friendCount
-      thoughts {
+      posts {
         _id
-        thoughtText
+        postBody
         createdAt
-        reactionCount
-        reactions {
-          _id
-          createdAt
-          reactionBody
-          username
-        }
       }
-      friends {
-        _id
-        username
+      inventory {
+        card_name
+        scryfall_id
+        img_uri
       }
     }
   }
