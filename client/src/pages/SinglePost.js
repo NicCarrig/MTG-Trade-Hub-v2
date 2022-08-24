@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import Header from '../components/Header'
+
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
 
@@ -12,17 +14,21 @@ import { QUERY_POST } from '../utils/queries';
 const SinglePost = (props) => {
   const { id: postId } = useParams();
 console.log(postId)
+
   const { loading, data } = useQuery(QUERY_POST, {
     variables: { id: postId },
   });
 
+
   const post = data?.post || {};
+
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
+
     <main className="flex-row justify-center mb-4">
       <Header />
     <div className='postContainer'>
@@ -45,6 +51,7 @@ console.log(postId)
 
      </div>
     </main>
+
   );
 };
 

@@ -31,6 +31,24 @@ export const QUERY_POST = gql`
   }
 `;
 
+export const QUERY_POST = gql`
+  query posts($id: ID!) {
+    posts(_id: $id){
+      _id
+      title
+       username
+       postBody
+       createdAt
+       comments {
+         _id
+         createdAt
+         username
+         commentBody
+       } 
+    }
+  }
+`;
+
 export const QUERY_USER = gql`
   query user($username: String!) {
     user(username: $username) {

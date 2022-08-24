@@ -10,6 +10,7 @@ import {
 
 
 import Footer from './components/Footer';
+import Header from './components/Header';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -43,38 +44,19 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-contents-center align-items-center min-100-vh">
-         
+          {/* <Header /> */}
           <div className="flex-column justify-contents-center align-items-center min-100-vh">
             <Routes>
-              <Route
-                path = "/home"
-                element={<Home/>}
-                />
-              <Route
-                path="/"
-                element={<Landing />}
-              />
+
+              <Route path="/" element={<Landing />}/>
+              <Route path="/home" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/profile/:username?" element={<Profile />} />
+              <Route path='/post/:id' element={<SinglePost />} />
               
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/signup"
-                element={<Signup />}
-              />
-              <Route path="/profile">
-                {/* <Route path=":username" element={<Profile />} /> */}
-                {/* <Route path="" element={<Profile />} /> */}
-              </Route>
-              <Route
-                path="/post/:id"
-                element= {<SinglePost/>}
-              />
-              <Route
-                path="*"
-                element={<NoMatch />}
-              />
+              <Route path="*" element={<NoMatch />} />
+
             </Routes>
           </div>
           <Footer />

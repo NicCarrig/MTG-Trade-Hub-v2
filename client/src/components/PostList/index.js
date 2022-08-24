@@ -26,6 +26,7 @@ const PostList = ({posts}) => {
                 Go to post
               </button>
             </Link>
+
             </div>
           </div>
         ))}

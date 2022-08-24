@@ -9,7 +9,8 @@ const Home = () => {
   const { data, loading } = useQuery(QUERY_POSTS);
 
   const post = data?.posts || [];
-console.log(post)
+  // console.log(post);
+
 
   return (
     <main className="flex-row  mb-4">
