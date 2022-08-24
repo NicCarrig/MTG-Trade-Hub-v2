@@ -4,23 +4,22 @@ const { signToken } = require('../utils/auth')
 
 const resolvers = {
 Query: {
-// ME will work with apolloServer to read request headers (JWT authentication)
-me: async (parent, args, context) => {
-  if (context.user) {
-    const userData = await User.findOne({ _id: context.user._id })
-      .select('-__v -password')
-      .populate('comments')
-      .populate('posts')
-      .populate('inventory')
-      .populate('friends');
+  // ME will work with apolloServer to read request headers (JWT authentication)
+  me: async (parent, args, context) => {
+    if (context.user) {
+      const userData = await User.findOne({ _id: context.user._id })
+        .select('-__v -password')
+        .populate('comments')
+        .populate('posts')
+        .populate('inventory')
+        .populate('friends');
 
-    return userData;
-  }
+      return userData;
+    }
 
-  throw new AuthenticationError('Not logged in');
-},
+    throw new AuthenticationError('Not logged in');
+  },
 
-  
   //get all posts
   posts: async () => {
     return Post.find().sort({ createdAt: -1 })
