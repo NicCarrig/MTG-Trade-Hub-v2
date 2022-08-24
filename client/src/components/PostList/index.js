@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PostList = ({posts}) => {
   if (!posts.length) {
@@ -16,9 +17,11 @@ const PostList = ({posts}) => {
             </p>
             <div className="card-body">
               <p>{post.postBody}</p>
-              <button className="btn btn-sm">
-                Go to post
-              </button>
+              <Link to={`/post/${post._id}`}>
+                <button className="btn btn-sm">
+                  Go to post
+                </button>
+              </Link>
             </div>
           </div>
         ))}
