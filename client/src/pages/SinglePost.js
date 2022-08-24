@@ -1,47 +1,51 @@
-// import React from 'react';
-// import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Header from '../components/Header'
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
 
-// import ReactionList from '../components/ReactionList';
-// import ReactionForm from '../components/ReactionForm';
+import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { QUERY_POST } from '../utils/queries';
 
-// import Auth from '../utils/auth';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_THOUGHT } from '../utils/queries';
 
-// const SingleThought = (props) => {
-//   const { id: thoughtId } = useParams();
+const SinglePost = (props) => {
+  const { id: postId } = useParams();
+console.log(postId)
+  const { loading, data } = useQuery(QUERY_POST, {
+    variables: { id: postId },
+  });
 
-//   const { loading, data } = useQuery(QUERY_THOUGHT, {
-//     variables: { id: thoughtId },
-//   });
+  const post = data?.post || {};
 
-//   const thought = data?.thought || {};
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
+  return (
+    <main className="flex-row justify-center mb-4">
+      <Header />
+    <div className='postContainer'>
+      <div className="postCard card mb-3">
+        <p className="postCardHeader card-header">
+          
+            {post.username}
+         {' '}
+           {post.createdAt}
+        </p>
+        <div className="card-body">
+          <p>{post.postBody}</p>
+        </div>
+      </div>
+        {post.comments.length > 0 && (
+          <CommentList comments={post.comments} />
+        )}
 
-//   return (
-//     <div>
-//       <div className="card mb-3">
-//         <p className="card-header">
-//           <span style={{ fontWeight: 700 }} className="text-light">
-//             {thought.username}
-//           </span>{' '}
-//           thought on {thought.createdAt}
-//         </p>
-//         <div className="card-body">
-//           <p>{thought.thoughtText}</p>
-//         </div>
-//       </div>
+        {/* {Auth.loggedIn() && <CommentForm postId={post._id} />} */}
 
-//       {thought.reactionCount > 0 && (
-//         <ReactionList reactions={thought.reactions} />
-//       )}
+     </div>
+    </main>
+  );
+};
 
-//       {Auth.loggedIn() && <ReactionForm thoughtId={thought._id} />}
-//     </div>
-//   );
-// };
-
-// export default SingleThought;
+export default SinglePost;

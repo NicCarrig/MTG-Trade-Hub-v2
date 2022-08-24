@@ -14,13 +14,13 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
-//import SingleThought from './pages/SingleThought';
+import SinglePost from './pages/SinglePost';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 // const authLink = setContext((_, { headers }) => {
@@ -47,13 +47,14 @@ function App() {
           <div className="flex-column justify-contents-center align-items-center min-100-vh">
             <Routes>
               <Route
+                path = "/home"
+                element={<Home/>}
+                />
+              <Route
                 path="/"
                 element={<Landing />}
               />
-              <Route
-                path="/home"
-                element={<Home />}
-              />
+              
               <Route
                 path="/login"
                 element={<Login />}
@@ -62,11 +63,14 @@ function App() {
                 path="/signup"
                 element={<Signup />}
               />
+              <Route path="/profile">
+                {/* <Route path=":username" element={<Profile />} /> */}
+                {/* <Route path="" element={<Profile />} /> */}
+              </Route>
               <Route
-                path="/profile"
-                element={<Profile />}
+                path="/post/:id"
+                element= {<SinglePost/>}
               />
-              
               <Route
                 path="*"
                 element={<NoMatch />}

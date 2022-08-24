@@ -20,21 +20,11 @@ me: async (parent, args, context) => {
   throw new AuthenticationError('Not logged in');
 },
 
-  // get all comments
-  comments: async (parent, { username }) => {
-    // allow to search by username
-    const params = username ? { username } : {};
-    return Comment.find(params).sort({ createdAt: -1 });
-  },
-  // get a comment by ID
-  comment: async (parent, { _id}) => {
-    return Comment.findOne({ _id});
-  },
+  
   //get all posts
   posts: async () => {
     return Post.find().sort({ createdAt: -1 })
-    .select('-__v')
-    .populate('comments');
+    .select('-__v');
   },
   // get a post by id
   post: async (parent, { _id }) => {
@@ -104,29 +94,13 @@ me: async (parent, args, context) => {
     
     addComment: async (parent, args, context) => {
       if (context.user) {
-        const comment = await Comment.create({ ...args, username: context.user.username });
-
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { comments: comment._id } },
-          { new: true }
-        );
-
-        return comment;
-      }
-
-      throw new AuthenticationError('You need to be logged in!');
-    },
-
-    addReply: async (parent, { commentId, replyBody }, context) => {
-      if (context.user) {
-        const updatedComment = await Comment.findOneAndUpdate(
-          { _id: commentId },
-          { $push: {replies: {replyBody, username: context.user.username}}},
+        const updatedPost = await Post.findByIdAndUpdate(
+          { _id: postId },
+          { $push: { comments: {commentBody, username: context.user.username} } },
           { new: true, runValidators: true }
         );
-      
-      return updatedComment;
+
+        return updatedPost;
       }
 
       throw new AuthenticationError('You need to be logged in!');

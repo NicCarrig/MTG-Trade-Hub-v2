@@ -5,9 +5,9 @@ const { Comment, User, Post, Inventory } = require('../models')
 
 
 db.once('open', async () => {
-  await Comment.deleteMany({});
+
   await User.deleteMany({});
-  // await Inventory.deleteMany({});
+  await Inventory.deleteMany({});
   await Post.deleteMany({});
 
   // USERS + FRIENDS
@@ -63,46 +63,21 @@ db.once('open', async () => {
  
  // -----------------------------------------------------------
  
+
+
  // create comments
- let createdComments = [];
- for (let i = 0; i < 100; i += 1) {
-   const commentBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
-   
-    const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
-    const { _id: postId } = createdPosts[randomPostIndex];
-
-    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-    const { username, _id: userId } = createdUsers.ops[randomUserIndex];
-
-
-    const createdComment = await Comment.create({ commentBody, username });
-
-    const updatedUser = await User.updateOne(
-      { _id: userId },
-      { $push: { comments: createdComment._id } }
-    ); 
-    const updatedPost = await Post.updateOne(
-      { _id: postId },
-      { $push: { comments: createdComment._id } }
-    );
-    
-    createdComments.push(createdComment);
-  }
-  console.log(createdPosts)
-
- // create replies
   for (let i = 0; i < 100; i += 1) {
-    const replyBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const commentBody = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username } = createdUsers.ops[randomUserIndex];
 
-    const randomCommentIndex = Math.floor(Math.random() * createdComments.length);
-    const { _id: commentId } = createdComments[randomCommentIndex];
+    const randomPostIndex = Math.floor(Math.random() * createdPosts.length);
+    const { _id: postId } = createdPosts[randomPostIndex];
 
-    await Comment.updateOne(
-      { _id: commentId },
-      { $push: { replies: { replyBody, username } } },
+    await Post.updateOne(
+      { _id: postId },
+      { $push: { comments: { commentBody, username } } },
       { runValidators: true }
     );
 
