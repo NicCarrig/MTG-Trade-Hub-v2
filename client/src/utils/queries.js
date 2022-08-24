@@ -64,11 +64,8 @@ export const QUERY_ME = gql`
         _id
         postBody
         createdAt
-        reactionCount
       }
       inventory {
-        _id
-        username
         card_name
         scryfall_id
         img_uri

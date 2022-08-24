@@ -10,7 +10,7 @@ Query: {
     if (context.user) {
       const userData = await User.findOne({ _id: context.user._id })
         .select('-__v -password')
-        .populate('comments')
+        // .populate('comments')
         .populate('posts')
         .populate('inventory')
         .populate('friends');
@@ -36,7 +36,7 @@ Query: {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      .populate('comments')
+      // .populate('comments')
       .populate('inventory');
   },
   // get a user by username
@@ -45,7 +45,7 @@ Query: {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      .populate('comments')
+      // .populate('comments')
       .populate('inventory');
   }
 
