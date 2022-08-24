@@ -9,6 +9,18 @@ export const QUERY_POSTS = gql`
       username
       postBody
       createdAt
+    }
+  }
+`;
+
+export const QUERY_POST = gql`
+  query post($id: ID!) {
+    post(_id: $id) {
+      _id
+     title
+      username
+      postBody
+      createdAt
       comments {
         _id
         createdAt
@@ -30,11 +42,11 @@ export const QUERY_USER = gql`
         _id
         username
       }
-      thoughts {
+      posts {
         _id
-        thoughtText
+        postBody
         createdAt
-        reactionCount
+        commentCount
       }
     }
   }

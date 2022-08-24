@@ -3,7 +3,8 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Header from '../components/Header'
 import Auth from '../utils/auth';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Signup = () => {
@@ -24,19 +25,24 @@ const Signup = () => {
     });
   };
 
+ 
+  const navigate = useNavigate();
+
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    
     try {
       const { data } = await addUser({
         variables: { ...formState },
       });
-
+      
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
     }
+   
+    navigate('/home')
   };
 
   return (
@@ -74,11 +80,12 @@ const Signup = () => {
                 value={formState.password}
                 onChange={handleChange}
               />
-              <Link to="/home">
-                <button className="btn btn-sm submitbtn" type="submit">
+              
+              <button className="btn btn-sm submitbtn" type="submit">
                   Submit
                 </button>
-              </Link>
+                
+              
             </form>
 
             {error && <div>Signup failed</div>}

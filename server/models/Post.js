@@ -1,8 +1,9 @@
 
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const commentSchema = require('./Comment');
 
-const PostSchema = new Schema(
+const postSchema = new Schema(
   {
     title: {
       type: String,
@@ -21,12 +22,7 @@ const PostSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-      }
-    ]
+    comments: [commentSchema]
   },
   {
     toJSON: {
@@ -36,7 +32,9 @@ const PostSchema = new Schema(
   }
 
 );
-
-const Post = model('Post', PostSchema)
+postSchema.virtual('commentCount').get(function () {
+  return this.comments.length;
+});
+const Post = model('Post', postSchema)
 
 module.exports = Post;
