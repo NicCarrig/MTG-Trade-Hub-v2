@@ -13,15 +13,20 @@ const PostList = ({posts}) => {
         posts.slice(0,10).map(post => (
           <div key={post._id} className="card postCard mb-3">
             <p className="card-header postCardHeader">
-             <b>{post.title}</b> By {post.username} at {post.createdAt}
+              <b>{post.title}</b>{' by '}  
+              <Link to={`/profile/${post.username}`} style={{ fontWeight: 700 }}>
+                {post.username}
+              </Link>{' '}
+               on {post.createdAt}
             </p>
             <div className="card-body">
+            <Link to={`/post/${post._id}`}>
               <p>{post.postBody}</p>
-              <Link to={`/post/${post._id}`}>
-                <button className="btn btn-sm">
-                  Go to post
-                </button>
-              </Link>
+              <button className="btn btn-sm">
+                Go to post
+              </button>
+            </Link>
+
             </div>
           </div>
         ))}

@@ -21,7 +21,7 @@ import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 // const authLink = setContext((_, { headers }) => {
@@ -47,6 +47,7 @@ function App() {
           {/* <Header /> */}
           <div className="flex-column justify-contents-center align-items-center min-100-vh">
             <Routes>
+
               <Route path="/" element={<Landing />}/>
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
@@ -55,6 +56,7 @@ function App() {
               <Route path='/post/:id' element={<SinglePost />} />
               
               <Route path="*" element={<NoMatch />} />
+
             </Routes>
           </div>
           <Footer />

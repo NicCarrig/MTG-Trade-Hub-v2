@@ -11,6 +11,7 @@ const Home = () => {
   const post = data?.posts || [];
   // console.log(post);
 
+
   return (
     <main className="flex-row  mb-4">
       <Header />
