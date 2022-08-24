@@ -15,7 +15,7 @@ const Header = () => {
           <div className="header flex-row">
             <nav className="navbar">
               <div className='title'>
-                <Link to="/">
+                <Link to="/home">
                   <h1>Magic The Gathering</h1>
                   </Link>
               </div>

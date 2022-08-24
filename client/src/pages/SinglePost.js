@@ -13,7 +13,7 @@ import { QUERY_POST } from '../utils/queries';
 
 const SinglePost = (props) => {
   const { id: postId } = useParams();
-console.log(postId)
+// console.log(postId)
 
   const { loading, data } = useQuery(QUERY_POST, {
     variables: { id: postId },
@@ -47,7 +47,7 @@ console.log(postId)
           <CommentList comments={post.comments} />
         )}
 
-        {/* {Auth.loggedIn() && <CommentForm postId={post._id} />} */}
+        {Auth.loggedIn() && <CommentForm postId={post._id} />}
 
      </div>
     </main>
