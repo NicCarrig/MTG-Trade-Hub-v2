@@ -20,13 +20,13 @@ const Home = () => {
   return (
     <main className="flex-row  mb-4">
       <Header />
-      <div className='justify-space-between'>
-        {loggedIn && ( 
-        <div className='col-12 mb-3'>
-          <PostForm />
-        </div>)}
+      <div className='d-flex flex-column justify-content-center'>
        
         <div className="postContainer">
+          {loggedIn && ( 
+          <div>
+            <PostForm />
+          </div>)}
             {loading ? (
               <div>Loading...</div>
               ) : (

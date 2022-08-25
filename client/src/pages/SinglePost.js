@@ -47,7 +47,7 @@ console.log(postId)
           <CommentList comments={post.comments} />
         )}
 
-        {/* {Auth.loggedIn() && <CommentForm postId={post._id} />} */}
+        {Auth.loggedIn() && <CommentForm postId={post._id} />}
 
      </div>
     </main>
