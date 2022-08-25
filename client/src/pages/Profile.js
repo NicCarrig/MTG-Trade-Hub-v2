@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 import Inventory from '../components/Inventory';
@@ -14,7 +14,19 @@ import Auth from '../utils/auth';
 
 const Profile = (props) => {
   const { username: userParam } = useParams();
-  // const [searchedCardName, setSearchedCardName] = useState();
+
+  const [cards, setCards] = useState(null);
+  useEffect(() => {
+    fetch('https://api.scryfall.com/cards/search?q=angel')
+      .then(res => {
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
+  }, [])
+
+
   // const [searchName, setSearchName] = useState();
 
   //   const [addFriend] = useMutation(ADD_FRIEND);
@@ -22,9 +34,9 @@ const Profile = (props) => {
     variables: { username: userParam },
   });
 
-  
+
   const user = data?.me || data?.user || {};
-  
+
 
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -47,20 +59,20 @@ const Profile = (props) => {
     );
   }
 
-//   const handleClick = async () => {
-//     try {
-//       await addFriend({
-//         variables: { id: user._id },
-//       });
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   };
+  //   const handleClick = async () => {
+  //     try {
+  //       await addFriend({
+  //         variables: { id: user._id },
+  //       });
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
 
-   return (
-     <main className="flex-row  mb-4">
+  return (
+    <main className="flex-row  mb-4">
       <Header />
-     <div className='d-flex flex-column justify-content-center p-3'>
+      <div className='d-flex flex-column justify-content-center p-3'>
         <h2 className="profileh2 p-3 display-inline-block">
           {userParam ? `${user.username}'s` : 'Your'} profile
         </h2>
@@ -68,18 +80,18 @@ const Profile = (props) => {
 
         <div className='flex-column mb-3'>
           <div >
-            
-             {!userParam && <PostForm />}
+
+            {!userParam && <PostForm />}
 
             <PostList posts={user.posts} title={`${user.username}'s posts`} />
           </div>
-           <h4 className="profileh2 p-3 display-inline-block">Add Inventory:</h4>
-           
-        <div className="d-flex justify-content-center">
-          <form className="flex-row justify-center ">
-            <textarea className="form-textarea search-textarea" placeholder='Search for a card'></textarea>
-            <button className='searchbtn'>Search</button>
-          </form>
+          <h4 className="profileh2 p-3 display-inline-block">Add Inventory:</h4>
+
+          <div className="d-flex justify-content-center">
+            <form className="flex-row justify-center ">
+              <textarea className="form-textarea search-textarea" placeholder='Search for a card'></textarea>
+              <button className='searchbtn'>Search</button>
+            </form>
           </div>
         </div>
 
@@ -87,8 +99,8 @@ const Profile = (props) => {
         {/* Should render the search results here */}
         {/* <Inventory /> */}
 
-    </div>
-     </main>
+      </div>
+    </main>
   );
 };
 

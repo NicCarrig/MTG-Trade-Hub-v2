@@ -1415,4 +1415,36 @@ form {
   .align-center-xl {
     align-items: center;
   }
+  /* card styling */
+  .card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+  
+  .card-container {
+    text-align: center;
+  }
+  .card-container > img {
+    width: 100%;
+  }
+  .remove-card-btn {
+    width: 100%;
+    background-color: #d41414;
+  }
+  .remove-card-btn:hover {
+    background-color: #ff643d;
+  }
+  .post-title{
+    font-size: 22px;
+  }
+  .add-card-btn{
+    width: 100%;
+    background-color: rgb(17, 129, 17);
+  }
+  .add-card-btn:hover {
+    background-color: rgb(49, 167, 49);
+  }
+
 }

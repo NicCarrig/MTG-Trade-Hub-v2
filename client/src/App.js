@@ -19,6 +19,7 @@ import SinglePost from './pages/SinglePost';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Landing from './pages/Landing';
+import CardSearch from './pages/CardSearch';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -48,14 +49,15 @@ function App() {
           <div className="flex-column justify-contents-center align-items-center min-100-vh">
             <Routes>
 
-              <Route path="/" element={<Landing />}/>
+              <Route path="/" element={<Landing />} />
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path='/profile/:username' element={<Profile />} />
               <Route path="/profile" element={<Profile />} />
               <Route path='/post/:id' element={<SinglePost />} />
-              
+              <Route path='/cards' element={<CardSearch />} />
+
               <Route path="*" element={<NoMatch />} />
 
             </Routes>
