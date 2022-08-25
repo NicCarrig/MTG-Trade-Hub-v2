@@ -13,7 +13,7 @@ const Header = () => {
     return (
         <header className="p-3 ">
           <div className="header flex-row">
-            <nav className="navbar">
+            <nav className="navbar p-3">
               <div className='title'>
                 <Link to="/home">
                   <h1>Magic The Gathering</h1>
