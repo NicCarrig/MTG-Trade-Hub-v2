@@ -4,7 +4,7 @@
   --tertiary: #b2c2c1;
   --quatrinary: #cadbda;
   --light: rgba(134, 172, 171, 0.6);
-  --dark: #4d0909;
+  --dark: #442828;
   --error: rgb(228, 46, 1);
   --border-radius: 0.3rem;
   --spacing-one: calc(1rem * 0.25);
@@ -37,7 +37,9 @@ body {
   background-attachment: fixed;
 }
 
-
+.light-font {
+  color:#eaead7;
+}
 header {
   display: flex;
   flex-direction: row;
@@ -45,6 +47,9 @@ header {
   background: transparent;
   color: var(--dark);
   width: 100vw;
+}
+footer {
+  color:#eaead7;
 }
 
 .navbar {
@@ -116,6 +121,12 @@ h2 {
   color: #eaead7;
   font-size: 2rem;
   
+}
+.profileh2 {
+  font-family: 'Cinzel Decorative';
+  font-weight: bold;
+  color: #442828;
+  text-shadow: 2px 2px 4px #610404;
 }
 
 h3 {
@@ -206,6 +217,13 @@ nav a:hover {
   box-shadow: 4px 4px 8px var(--dark);
 }
 
+.searchbtn {
+  border-radius: 30px;
+  box-shadow: 2x 2px 8px var(--dark);
+  background-color:#b2c2c1;
+  
+}
+
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
@@ -234,7 +252,8 @@ nav a:hover {
 .postCard {
   background-color: #eaead7;
   opacity: 0.9;
-  width: 80%
+  width: 80%;
+  border-radius: 5px; 
   
 }
 
@@ -254,6 +273,29 @@ nav a:hover {
 /* FORM */
 form {
   text-align: center;
+ align-items: center;
+ justify-content: space-around;
+  background-color: transparent;
+  width: 400px;
+}
+
+.postForm {
+  background-color: #442828;
+  padding: 15px;
+  border-radius: 20px;
+  width: 80%;
+  opacity: 0.9;
+}
+
+.postForm-textarea {
+  border-radius: 15px;
+  background-color: #eaead7;
+}
+
+.postSubmitbtn {
+  border-radius: 30px;
+  box-shadow: 2x 2px 8px var(--dark);
+  background-color: var(--secondary);
 }
 
 .form-label,
@@ -261,13 +303,19 @@ form {
 .form-textarea {
   display: block;
   text-align: center;
+  border-radius: 20px;
+  background-color:#eaead7; opacity: .8;
+  
+}
+
+.search-textarea {
+  height: 40px;
 }
 
 .form-label {
   font-size: 1.2rem;
   margin: 0.625rem 0 0.25rem;
   text-align: center;
-
 }
 
 .form-input {

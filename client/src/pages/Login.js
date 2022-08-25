@@ -9,7 +9,7 @@ const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
   
-  const navigate = useNavigate();
+ 
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -20,7 +20,7 @@ const Login = (props) => {
       [name]: value,
     });
   };
-
+  const navigate = useNavigate();
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();

@@ -10,7 +10,6 @@ Query: {
     if (context.user) {
       const userData = await User.findOne({ _id: context.user._id })
         .select('-__v -password')
-        // .populate('comments')
         .populate('posts')
         .populate('inventory')
         .populate('friends');
@@ -22,8 +21,9 @@ Query: {
   },
 
   //get all posts
-  posts: async () => {
-    return Post.find().sort({ createdAt: -1 })
+  posts: async (parent, { username }) => {
+    const params = username ? { username } : {};
+    return Post.find(params).sort({ createdAt: -1 })
     .select('-__v');
   },
   // get a post by id
@@ -36,7 +36,6 @@ Query: {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      // .populate('comments')
       .populate('inventory');
   },
   // get a user by username
@@ -45,7 +44,6 @@ Query: {
       .select('-__v -password')
       .populate('posts')
       .populate('friends')
-      // .populate('comments')
       .populate('inventory');
   }
 
@@ -92,7 +90,9 @@ Query: {
       throw new AuthenticationError('You need to be logged in!');
     },
     
+
     addComment: async (parent, { postId, commentBody }, context) => {
+
       if (context.user) {
         const updatedPost = await Post.findOneAndUpdate(
           { _id: postId },

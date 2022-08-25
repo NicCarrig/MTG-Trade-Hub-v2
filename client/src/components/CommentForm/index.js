@@ -36,27 +36,30 @@ const CommentForm = ({ postId }) => {
   };
 
   return (
-    <div>
-      <p
-        className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
+    <div className="d-flex justify-content-center">
+      
       <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
+        className="mb-3 postForm flex-row justify-center align-stretch"
         onSubmit={handleFormSubmit}
       >
         <textarea
           placeholder="Leave a comment..."
           value={commentBody}
-          className="form-input col-12 col-md-9"
+          className="postForm-textarea col-12"
           onChange={handleChange}
         ></textarea>
 
-        <button className="btn col-12 col-md-3" type="submit">
+        <button className="postSubmitbtn btn col-12" type="submit">
           Submit
         </button>
+        <div className='light-font'>
+          <p
+            className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
+          >
+            Character Count: {characterCount}/280
+            {error && <span className="ml-2">Something went wrong...</span>}
+          </p>
+        </div>
       </form>
 
       {error && <div>Something went wrong...</div>}

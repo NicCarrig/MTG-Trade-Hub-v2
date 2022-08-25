@@ -22,11 +22,6 @@ const Profile = (props) => {
     variables: { username: userParam },
   });
 
-  // console.log(data);
-  // console.log('Username');
-  // console.log(Auth.getProfile().data.username);
-  // console.log('Logged In');
-  // console.log(Auth.loggedIn());
   
   const user = data?.me || data?.user || {};
   
@@ -63,31 +58,37 @@ const Profile = (props) => {
 //   };
 
    return (
-    <div>
+     <main className="flex-row  mb-4">
       <Header />
-        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+     <div className='d-flex flex-column justify-content-center p-3'>
+        <h2 className="profileh2 p-3 display-inline-block">
+          {userParam ? `${user.username}'s` : 'Your'} profile
         </h2>
 
-        <div className='flex-row justify-space-between mb-3'>
-          <div className='col-12 mb-3'>
-            <PostForm />
-          </div>
-          <div className='col-12 mb-3 col-lg-8'>
+
+        <div className='flex-column mb-3'>
+          <div >
+            
+             {!userParam && <PostForm />}
+
             <PostList posts={user.posts} title={`${user.username}'s posts`} />
           </div>
+           <h4 className="profileh2 p-3 display-inline-block">Add Inventory:</h4>
+           
+        <div className="d-flex justify-content-center">
+          <form className="flex-row justify-center ">
+            <textarea className="form-textarea search-textarea" placeholder='Search for a card'></textarea>
+            <button className='searchbtn'>Search</button>
+          </form>
+          </div>
         </div>
-
-        <form>
-            <textarea placeholder='Search for a card'></textarea>
-            <button>Search</button>
-        </form>
 
 
         {/* Should render the search results here */}
         {/* <Inventory /> */}
 
     </div>
+     </main>
   );
 };
 
