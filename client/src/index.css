@@ -272,6 +272,7 @@ nav a:hover {
 
 /* FORM */
 form {
+  text-align: center;
  align-items: center;
  justify-content: space-around;
   background-color: transparent;

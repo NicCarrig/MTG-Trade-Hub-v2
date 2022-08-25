@@ -68,8 +68,8 @@ const Profile = (props) => {
 
         <div className='flex-column mb-3'>
           <div >
-             <h3 className="profileh2 p-3 display-inline-block">Add a Post:</h3>
-            <PostForm/>
+            
+             {!userParam && <PostForm />}
 
             <PostList posts={user.posts} title={`${user.username}'s posts`} />
           </div>
