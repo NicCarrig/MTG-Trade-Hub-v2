@@ -68,7 +68,7 @@ const PostForm = () => {
       <form
         className="mb-3 postForm flex-row justify-center align-stretch"
         onSubmit={handleFormSubmit}
-      >
+      ><div className='light-font'>Add a post</div>
         <input className="postForm-textarea col-12" type="text" value={title}  placeholder='Title' onChange={handleTitleChange}></input>
         <textarea
           placeholder="New Post..."
