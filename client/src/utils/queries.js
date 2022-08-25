@@ -5,10 +5,17 @@ export const QUERY_POSTS = gql`
   query posts($username: String) {
     posts(username: $username) {
       _id
-     title
+      title
       username
       postBody
       createdAt
+      commentCount
+      comments {
+        _id
+        createdAt
+        username
+        commentBody
+      }
     }
   }
 `;
@@ -21,6 +28,7 @@ export const QUERY_POST = gql`
       username
       postBody
       createdAt
+      commentCount
       comments {
         _id
         createdAt

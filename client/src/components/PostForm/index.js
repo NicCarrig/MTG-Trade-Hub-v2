@@ -24,7 +24,7 @@ const PostForm = () => {
         console.warn("First Post insertion by user!")
       }
 
-      // update thought array's cache
+      // update post array's cache
       const { posts } = cache.readQuery({ query: QUERY_POSTS });
       cache.writeQuery({
         query: QUERY_POSTS,
@@ -63,27 +63,30 @@ const PostForm = () => {
   };
 
   return (
-    <div>
-      <p
-        className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
-      >
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
+    <div className="d-flex justify-content-center">
+      
       <form
-        className="flex-row justify-center justify-space-between-md align-stretch w-75"
+        className="mb-3 postForm flex-row justify-center align-stretch"
         onSubmit={handleFormSubmit}
       >
-        <input type="text" value={title} className="form-input col-12" placeholder='Title' onChange={handleTitleChange}></input>
+        <input className="postForm-textarea col-12" type="text" value={title}  placeholder='Title' onChange={handleTitleChange}></input>
         <textarea
           placeholder="New Post..."
           value={postBody}
-          className="form-input col-12 "
+          className="postForm-textarea col-12 "
           onChange={handleChange}
         ></textarea>
-        <button className="btn col-12" type="submit">
+        <button className="postSubmitbtn btn col-12" type="submit">
           Submit
         </button>
+        <div className='light-font'>
+        <p 
+          className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
+        >
+          Character Count: {characterCount}/280
+          {error && <span className="ml-2">Something went wrong...</span>}
+        </p>
+        </div>
       </form>
     </div>
   );
