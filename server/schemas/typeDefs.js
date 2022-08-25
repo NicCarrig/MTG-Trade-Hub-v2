@@ -15,6 +15,7 @@ const typeDefs = gql`
     username: String
     postBody: String
     createdAt: String
+    commentCount: Int
     comments: [Comment]
   }
   type Comment {
