@@ -13,7 +13,7 @@ import { QUERY_POST } from '../utils/queries';
 
 const SinglePost = (props) => {
   const { id: postId } = useParams();
-console.log(postId)
+// console.log(postId)
 
   const { loading, data } = useQuery(QUERY_POST, {
     variables: { id: postId },

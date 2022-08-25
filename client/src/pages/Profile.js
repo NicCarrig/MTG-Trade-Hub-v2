@@ -65,10 +65,12 @@ const Profile = (props) => {
           {userParam ? `${user.username}'s` : 'Your'} profile
         </h2>
 
+
         <div className='flex-column mb-3'>
           <div >
              <h3 className="profileh2 p-3 display-inline-block">Add a Post:</h3>
             <PostForm/>
+
             <PostList posts={user.posts} title={`${user.username}'s posts`} />
           </div>
            <h4 className="profileh2 p-3 display-inline-block">Add Inventory:</h4>
